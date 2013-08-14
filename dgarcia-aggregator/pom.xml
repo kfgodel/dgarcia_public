@@ -20,6 +20,10 @@
         <module>../dgarcia-parent</module>
         <module>../dgarcia-commons</module>
         <module>../forkjoin-java5</module>
+        <module>../dgarcia-textualizer</module>
+        <module>../json-textualizer</module>
+        <module>../xml-textualizer</module>
+        <module>../object-sockets</module>
     </modules>
     
 </project>

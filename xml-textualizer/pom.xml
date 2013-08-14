@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+	<groupId>ar.com.dgarcia</groupId>
+	<artifactId>dgarcia-parent</artifactId>
+	<version>1.0</version>
+	<relativePath>../dgarcia-parent</relativePath>
+  </parent>
+  
+  <groupId>ar.dgarcia.textualizer</groupId>
+  <artifactId>xml-textualizer</artifactId>
+  <version>0.1</version>
+  
+  <name>XML-Textualizer</name>
+  <description>Conjunto de clases que permite convertir objetos en string XML y viceversa</description>
+  
+  <dependencies>
+  
+   	<!-- Clases base para los textualizers -->
+  	<dependency>
+		<groupId>ar.dgarcia</groupId>
+		<artifactId>dgarcia-textualizer</artifactId>
+		<version>0.1</version>
+  	</dependency>
+  	
+    <!-- Agrega la conversión a XML -->
+	<dependency>
+		<groupId>com.thoughtworks.xstream</groupId>
+		<artifactId>xstream</artifactId>
+		<version>1.4.2</version>
+	</dependency>
+	
+	<!-- Agrega toString y mediciones de performance para tests -->
+	<dependency>
+	 <groupId>ar.com.dgarcia</groupId>
+	 <artifactId>dgarcia-commons</artifactId>
+	</dependency>
+	
+  </dependencies>
+  
+</project>

@@ -15,6 +15,10 @@
     <properties>
 	  <project.jdk>1.5</project.jdk>
 	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <version.dgarcia-commons>1.0.5</version.dgarcia-commons>
+	  <version.logback>1.0.13</version.logback>
+	  <version.slf4j>1.7.5</version.slf4j>
+	  <version.junit>4.8.1</version.junit>
 	</properties>
     
     <build>
@@ -95,43 +99,88 @@
 	    <dependency>
 	      <groupId>org.slf4j</groupId>
 	      <artifactId>slf4j-api</artifactId>
-	      <version>1.6.4</version>
-	      <scope>provided</scope>
 	    </dependency>
 	    
 	    <!-- Implementación del logueo, necesario para los tests-->
 	    <dependency>
 	      <groupId>ch.qos.logback</groupId>
 	      <artifactId>logback-core</artifactId>
-	      <version>1.0.3</version>
 	      <scope>test</scope>
 	    </dependency>
 	    <dependency>
 	      <groupId>ch.qos.logback</groupId>
 	      <artifactId>logback-classic</artifactId>
-	      <version>1.0.3</version>
 	      <scope>test</scope>
 	    </dependency>
 	    <dependency>
 	      <groupId>org.slf4j</groupId>
 	      <artifactId>jcl-over-slf4j</artifactId>
-	      <version>1.6.4</version>
 	      <scope>test</scope>
 	    </dependency>
 	    <dependency>
 	      <groupId>org.slf4j</groupId>
 	      <artifactId>log4j-over-slf4j</artifactId>
-	      <version>1.6.4</version>
 	      <scope>test</scope>
 	    </dependency>
 	    <dependency>
 	      <groupId>junit</groupId>
 	      <artifactId>junit</artifactId>
-	      <version>4.8.1</version>
 	      <scope>test</scope>
-	    </dependency>	    
+	    </dependency>
 	    
     </dependencies>
+    
+    <!-- Dependencias opcionales -->
+    <dependencyManagement>
+    	<dependencies>
+    	
+    		<!-- Codigo basico comun compartido en casi todos los proyectos -->
+    		<dependency>
+				<groupId>ar.com.dgarcia</groupId>
+				<artifactId>dgarcia-commons</artifactId>
+				<version>${version.dgarcia-commons}</version>
+    		</dependency>
+    		
+			<!--  Abstrae la herramienta de logueo concreta -->
+		    <dependency>
+		      <groupId>org.slf4j</groupId>
+		      <artifactId>slf4j-api</artifactId>
+		      <version>${version.slf4j}</version>
+		    </dependency>
+		    
+		    <!-- Implementación del logueo, necesario para los tests-->
+		    <dependency>
+		      <groupId>ch.qos.logback</groupId>
+		      <artifactId>logback-core</artifactId>
+		      <version>${version.logback}</version>
+		    </dependency>
+		    <dependency>
+		      <groupId>ch.qos.logback</groupId>
+		      <artifactId>logback-classic</artifactId>
+		      <version>${version.logback}</version>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.slf4j</groupId>
+		      <artifactId>jcl-over-slf4j</artifactId>
+		      <version>${version.slf4j}</version>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.slf4j</groupId>
+		      <artifactId>log4j-over-slf4j</artifactId>
+		      <version>${version.slf4j}</version>
+		    </dependency>
+    		
+    		
+    		<!-- Para los proyectos que agregan clases para tests -->
+    		<dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <version>${version.junit}</version>
+		    </dependency>	    
+    		
+    	</dependencies>
+    </dependencyManagement>
+    
     
 	<!-- Repositorio para dependencias del proyecto -->
 	<repositories>
