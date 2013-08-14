@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+	<groupId>ar.com.dgarcia</groupId>
+	<artifactId>dgarcia-parent</artifactId>
+	<version>1.0</version>
+	<relativePath>../dgarcia-parent</relativePath>
+  </parent>
+  
+  <artifactId>dgarcia-commons</artifactId>
+  <version>1.0.5</version>
+  
+  <name>Clases comunes de dgarcia</name>
+  <description>Conjunto de clases que facilitan el desarrollo solucionando problemas comunes</description>
+  
+  <dependencies>
+  
+  	<!-- Permite testear la implementación de algunas colecciones -->
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections-testframework</artifactId>
+		<version>3.1</version>
+		<scope>test</scope>
+	</dependency>
+	
+	<!-- Tenemos una dependencia con Junit en las clases de Assert -->
+	    <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.8.1</version>
+	      <scope>provided</scope>
+	    </dependency>	    
+    
+  </dependencies>
+  
+</project>
