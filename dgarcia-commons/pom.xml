@@ -13,7 +13,7 @@
   <artifactId>dgarcia-commons</artifactId>
   <version>1.0.5</version>
   
-  <name>Clases comunes de dgarcia</name>
+  <name>Dgarcia-commons</name>
   <description>Conjunto de clases que facilitan el desarrollo solucionando problemas comunes</description>
   
   <dependencies>

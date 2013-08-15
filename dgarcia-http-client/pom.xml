@@ -13,7 +13,7 @@
   <artifactId>dgarcia-http-client</artifactId>
   <version>0.1</version>
   
-  <name>Cliente generico http</name>
+  <name>Dgarcia-http-client</name>
   <description>Proyecto abstraccion del proveedor concreto de http para ser usado en otros proyectos</description>
   
   <dependencies>
