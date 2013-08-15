@@ -10,30 +10,20 @@
 	<relativePath>../dgarcia-parent</relativePath>
   </parent>
   
-  <artifactId>dgarcia-textualizer</artifactId>
+  <artifactId>dgarcia-http-client</artifactId>
   <version>0.1</version>
   
-  <name>Dgarcia-Textualizer</name>
-  <description>Conjunto de clases que permite convertir objetos en string y viceversa</description>
+  <name>Cliente generico http</name>
+  <description>Proyecto abstraccion del proveedor concreto de http para ser usado en otros proyectos</description>
   
   <dependencies>
   
-  	<!-- Dependencias comunes de codigo -->
-	<dependency>
-		<groupId>${project.parent.groupId}</groupId>
-		<artifactId>dgarcia-commons</artifactId>
-	</dependency>
-	
-	<!-- Dependencias para clases de soporte de tests -->
-	<dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <scope>provided</scope>
-	</dependency>
-	
+  	<!-- Principalmente el tostring -->
+  	<dependency>
+	  <groupId>${project.parent.groupId}</groupId>
+	  <artifactId>dgarcia-commons</artifactId>
+  	</dependency>
+    
   </dependencies>
   
- 
 </project>
-
-

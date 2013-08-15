@@ -10,7 +10,6 @@
 	<relativePath>../dgarcia-parent</relativePath>
   </parent>
   
-  <groupId>ar.dgarcia.textualizer</groupId>
   <artifactId>xml-textualizer</artifactId>
   <version>0.1</version>
   
@@ -21,7 +20,7 @@
   
    	<!-- Clases base para los textualizers -->
   	<dependency>
-		<groupId>ar.dgarcia</groupId>
+		<groupId>${project.parent.groupId}</groupId>
 		<artifactId>dgarcia-textualizer</artifactId>
 		<version>0.1</version>
   	</dependency>
@@ -35,7 +34,7 @@
 	
 	<!-- Agrega toString y mediciones de performance para tests -->
 	<dependency>
-	 <groupId>ar.com.dgarcia</groupId>
+	 <groupId>${project.parent.groupId}</groupId>
 	 <artifactId>dgarcia-commons</artifactId>
 	</dependency>
 	

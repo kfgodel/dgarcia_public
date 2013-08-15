@@ -24,6 +24,8 @@
         <module>../json-textualizer</module>
         <module>../xml-textualizer</module>
         <module>../object-sockets</module>
+        <module>../dgarcia-http-client</module>
+        <module>../dgarcia-http-client-apache</module>
     </modules>
     
 </project>

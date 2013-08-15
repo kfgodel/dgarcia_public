@@ -10,7 +10,6 @@
 	<relativePath>../dgarcia-parent</relativePath>
   </parent>
   
-  <groupId>ar.dgarcia</groupId>
   <artifactId>object-sockets</artifactId>
   <version>0.1</version>
   

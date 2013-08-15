@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+	<groupId>ar.com.dgarcia</groupId>
+	<artifactId>dgarcia-parent</artifactId>
+	<version>1.0</version>
+	<relativePath>../dgarcia-parent</relativePath>
+  </parent>
+  
+  <artifactId>dgarcia-http-client-apache</artifactId>
+  <version>1.0</version>
+  
+  <name>Simple Http client</name>
+  <description>Cliente muy simple para http basado en el de apache</description>
+  
+  <dependencies>
+ 	
+ 	<!-- Clases comunes -->
+ 	<dependency>
+		<groupId>${project.parent.groupId}</groupId>
+ 		<artifactId>dgarcia-commons</artifactId>
+ 	</dependency>
+ 
+ 	<!-- Definicion del contrato esperado -->
+ 	<dependency>
+		<groupId>${project.parent.groupId}</groupId>
+		<artifactId>dgarcia-http-client</artifactId>
+		<version>0.1</version>
+ 	</dependency>
+ 
+ 	<!-- Cliente http de apache --> 
+   	<dependency>
+  		<groupId>org.apache.httpcomponents</groupId>
+  		<artifactId>httpclient</artifactId>
+  		<version>4.1.1</version>
+  		<exclusions>
+		  <exclusion>
+	          <groupId>commons-logging</groupId>
+	          <artifactId>commons-logging</artifactId>
+	        </exclusion>
+  		</exclusions>
+  	</dependency>
+  	
+  	<!-- Herramientas para manejar IO facilmente -->
+  	<dependency>
+  		<groupId>org.apache.commons</groupId>
+  		<artifactId>commons-io</artifactId>
+  		<version>1.3.2</version>
+  	</dependency>
+  
+  </dependencies>
+  
+</project>
