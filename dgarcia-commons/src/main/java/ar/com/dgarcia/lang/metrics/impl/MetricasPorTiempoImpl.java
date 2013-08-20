@@ -12,6 +12,8 @@
  */
 package ar.com.dgarcia.lang.metrics.impl;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 import ar.com.dgarcia.lang.metrics.ListenerDeMetricas;
 import ar.com.dgarcia.lang.metrics.MetricasPorTiempo;
 import ar.com.dgarcia.lang.strings.ToString;
@@ -25,35 +27,33 @@ import ar.com.dgarcia.lang.time.SystemChronometer;
  */
 public class MetricasPorTiempoImpl extends MetricasPorTiempoSupport implements MetricasPorTiempo, ListenerDeMetricas {
 
-	private long contadorDeInputs;
+	private AtomicLong contadorDeInputs;
 	public static final String contadorDeInputs_FIELD = "contadorDeInputs";
-
-	private long contadorDeOutputs;
+	private AtomicLong contadorDeOutputs;
 	public static final String contadorDeOutputs_FIELD = "contadorDeOutputs";
-
 	private SystemChronometer cronometro;
 	public static final String cronometro_FIELD = "cronometro";
 
 	/**
 	 * @see net.gaia.vortex.core.api.metricas.MetricasPorTiempo#getCantidadDeInputs()
 	 */
-
+	
 	public long getCantidadDeInputs() {
-		return contadorDeInputs;
+		return contadorDeInputs.get();
 	}
 
 	/**
 	 * @see net.gaia.vortex.core.api.metricas.MetricasPorTiempo#getCantidadDeOutputs()
 	 */
-
+	
 	public long getCantidadDeOutputs() {
-		return contadorDeOutputs;
+		return contadorDeOutputs.get();
 	}
 
 	/**
 	 * @see net.gaia.vortex.core.api.metricas.MetricasPorTiempo#getDuracionDeMedicionEnMilis()
 	 */
-
+	
 	public long getDuracionDeMedicionEnMilis() {
 		return cronometro.getElapsedMillis();
 	}
@@ -67,23 +67,23 @@ public class MetricasPorTiempoImpl extends MetricasPorTiempoSupport implements M
 	/**
 	 * Registra en esta métrica que se realizó una recepción de mensaje
 	 */
-
+	
 	public void registrarInput() {
-		this.contadorDeInputs++;
+		this.contadorDeInputs.incrementAndGet();
 	}
 
 	/**
 	 * Registra en esta métrica que se realizó un ruteo de mensaje
 	 */
-
+	
 	public void registrarOutput() {
-		this.contadorDeOutputs++;
+		this.contadorDeOutputs.incrementAndGet();
 	}
 
 	/**
 	 * @see net.gaia.vortex.core.api.metricas.MetricasPorTiempo#getMomentoDeInicioDeLaMedicionEnMilis()
 	 */
-
+	
 	public long getMomentoDeInicioDeLaMedicionEnMilis() {
 		return cronometro.getStartMillis();
 	}
@@ -93,31 +93,30 @@ public class MetricasPorTiempoImpl extends MetricasPorTiempoSupport implements M
 	 */
 	public void resetear() {
 		this.cronometro = SystemChronometer.create();
-		this.contadorDeInputs = 0;
-		this.contadorDeOutputs = 0;
+		this.contadorDeInputs = new AtomicLong();
+		this.contadorDeOutputs = new AtomicLong();
 	}
 
 	/**
 	 * @see ar.com.dgarcia.lang.metrics.ListenerDeMetricas#registrarInput(long)
 	 */
-
+	
 	public void registrarInput(final long cantidadIngresada) {
-		this.contadorDeInputs += cantidadIngresada;
+		this.contadorDeInputs.addAndGet(cantidadIngresada);
 	}
 
 	/**
 	 * @see ar.com.dgarcia.lang.metrics.ListenerDeMetricas#registrarOutput(long)
 	 */
-
+	
 	public void registrarOutput(final long cantidadEgresada) {
-		this.contadorDeOutputs += cantidadEgresada;
+		this.contadorDeOutputs.addAndGet(cantidadEgresada);
 	}
 
 	/**
 	 * @see java.lang.Object#toString()
 	 */
-
-	@Override
+	
 	public String toString() {
 		return ToString.de(this).con(contadorDeInputs_FIELD, contadorDeInputs)
 				.con(contadorDeOutputs_FIELD, contadorDeOutputs).con(cronometro_FIELD, cronometro).toString();
