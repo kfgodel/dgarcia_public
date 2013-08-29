@@ -12,9 +12,7 @@
  */
 package ar.com.dgarcia.colecciones.maps;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import ar.com.dgarcia.lang.strings.ToString;
@@ -45,21 +43,16 @@ public class LRUCache<K, V> extends LinkedHashMap<K, V> {
 		this.cacheSize = cacheSize;
 	}
 
-	
+	@Override
 	protected boolean removeEldestEntry(final Map.Entry<K, V> eldest) {
 		return (size() > cacheSize);
-	}
-
-	List<K> keyList() {
-		final ArrayList<K> al = new ArrayList<K>();
-		al.addAll(keySet());
-		return al;
 	}
 
 	/**
 	 * @see java.lang.Object#toString()
 	 */
-	
+
+	@Override
 	public String toString() {
 		return ToString.de(this).con(cacheSize_FIELD, cacheSize).con("contenido", super.toString()).toString();
 	}
