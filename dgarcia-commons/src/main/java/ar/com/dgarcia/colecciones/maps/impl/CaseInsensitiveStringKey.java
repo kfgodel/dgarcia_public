@@ -111,13 +111,13 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	public boolean equals(final Object obj) {
 		if (obj instanceof CaseInsensitiveStringKey) {
 			final CaseInsensitiveStringKey that = (CaseInsensitiveStringKey) obj;
-			final boolean esIgualTransformada = internalEqual(insensitiveCaseString, that.insensitiveCaseString);
+			final boolean esIgualTransformada = internalEqual(insensitiveCaseString, that.insensitiveCaseString, false);
 			return esIgualTransformada;
 		}
 		else if (obj instanceof CharSequence) {
 			final CharSequence sequence = (CharSequence) obj;
 			final String comparedString = sequence.toString();
-			final boolean esIgualSinCase = insensitiveCaseString.equalsIgnoreCase(comparedString);
+			final boolean esIgualSinCase = internalEqual(insensitiveCaseString, comparedString, true);
 			return esIgualSinCase;
 		}
 		return false;
@@ -134,9 +134,11 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	 *            Una cadena a comparar que ya esta transformadad
 	 * @param thatString
 	 *            La otra cadena a comparar que tambien esta transformada
+	 * @param ignoreCase
+	 *            indica si se debe ignorar el case de la segunda cadena al comparar con la primera
 	 * @return true si tienen los mismos chars
 	 */
-	private boolean internalEqual(final String thisString, final String thatString) {
+	private static boolean internalEqual(final String thisString, final String thatString, final boolean ignoreCase) {
 		if (thisString == thatString) {
 			return true;
 		}
@@ -150,33 +152,61 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 
 		while (indiceInicial < indiceFinal) {
 			// Chequeamos el caracter del extremo final
-			final char thisLastChar = thisString.charAt(indiceFinal);
-			final char thatLastChar = thatString.charAt(indiceFinal);
-			if (thisLastChar != thatLastChar) {
-				// No es el mismo char
+			if (!internalEqualCharAt(thisString, thatString, indiceFinal, ignoreCase)) {
+				// Ya sabemos que no son iguales porque difieren en el char
 				return false;
 			}
 
 			// Chequeamos el caracter del extremo inicial
-			final char thisFirstChar = thisString.charAt(indiceInicial);
-			final char thatFirstChar = thatString.charAt(indiceInicial);
-			if (thisFirstChar != thatFirstChar) {
-				// No es el mismo caracter
+			if (!internalEqualCharAt(thisString, thatString, indiceInicial, ignoreCase)) {
+				// Ya sabemos que no son iguales porque difieren en el char
 				return false;
 			}
+
 			indiceInicial++;
 			indiceFinal--;
 		}
 		// Si es longitud impar me va a quedar el caracter del medio por chequear
 		if (indiceInicial == indiceFinal) {
-			final char thisFirstChar = thisString.charAt(indiceInicial);
-			final char thatFirstChar = thatString.charAt(indiceInicial);
-			if (thisFirstChar != thatFirstChar) {
+			if (!internalEqualCharAt(thisString, thatString, indiceInicial, ignoreCase)) {
 				// No es el mismo caracter
 				return false;
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Compara el caracter del indice indicado en ambas cadenas para determinar si representan el
+	 * mismo caracter
+	 * 
+	 * @param thisString
+	 *            La cadena de referencia
+	 * @param thatString
+	 *            La cadena comparada
+	 * @param indiceComparado
+	 *            El indice del caracter a comparar
+	 * @param ignoreCase
+	 *            true si la segunda cadena puede pasarse a lower el caracter comparado
+	 * @return true si representan el mismo caracter, false si sin distintos
+	 */
+	private static boolean internalEqualCharAt(final String thisString, final String thatString,
+			final int indiceComparado, final boolean ignoreCase) {
+		final char thisChar = thisString.charAt(indiceComparado);
+		final char thatChar = thatString.charAt(indiceComparado);
+		if (thisChar == thatChar) {
+			// Nada maś que verificar
+			return true;
+		}
+		// No es el mismo char
+		if (!ignoreCase) {
+			// No podemos ignorar la diferencia
+			return false;
+		}
+		// Vemos si es el mismo char al pasar a lower
+		final char thatLowerChar = toLowerChar(thatChar);
+		// Si despues de pasar a lower, hay diferencia entonces no son iguales
+		return thisChar == thatLowerChar;
 	}
 
 	/**

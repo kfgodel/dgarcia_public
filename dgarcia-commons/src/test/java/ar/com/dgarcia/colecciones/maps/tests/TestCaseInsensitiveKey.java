@@ -17,8 +17,7 @@
  */
 package ar.com.dgarcia.colecciones.maps.tests;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import ar.com.dgarcia.colecciones.maps.impl.CaseInsensitiveStringKey;
