@@ -12,6 +12,8 @@
  */
 package ar.com.dgarcia.colecciones.maps.impl;
 
+import java.util.Locale;
+
 /**
  * Esta clase representa una key de tipo String utilizada en un mapa case-insensitive.<br>
  * Esta instancia toma un string como base para establecer relacion de igualdad con otros strings
@@ -39,19 +41,21 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	 * @return La versión insensitive
 	 */
 	public static String convertToInsensitiveCaseRepresentation(final String unString) {
-		return unString.toUpperCase();
+		return unString.toUpperCase(Locale.ENGLISH);
 	}
 
 	/**
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	
+
+	@Override
 	public boolean equals(final Object obj) {
 		if (obj instanceof CaseInsensitiveStringKey) {
 			final CaseInsensitiveStringKey that = (CaseInsensitiveStringKey) obj;
 			final boolean esIgualTransformada = insensitiveCaseString.equals(that.insensitiveCaseString);
 			return esIgualTransformada;
-		} else if (obj instanceof CharSequence) {
+		}
+		else if (obj instanceof CharSequence) {
 			final CharSequence sequence = (CharSequence) obj;
 			final String comparedString = sequence.toString();
 			final boolean esIgualAOriginal = originalString.equals(comparedString);
@@ -72,7 +76,8 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	/**
 	 * @see java.lang.Object#hashCode()
 	 */
-	
+
+	@Override
 	public int hashCode() {
 		return insensitiveCaseString.hashCode();
 	}
@@ -80,7 +85,8 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	/**
 	 * @see java.lang.Object#toString()
 	 */
-	
+
+	@Override
 	public String toString() {
 		return insensitiveCaseString;
 	}
@@ -96,7 +102,7 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	/**
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	
+
 	public int compareTo(final CaseInsensitiveStringKey that) {
 		final int comparacion = this.insensitiveCaseString.compareTo(that.insensitiveCaseString);
 		return comparacion;
