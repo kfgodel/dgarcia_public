@@ -12,8 +12,6 @@
  */
 package ar.com.dgarcia.colecciones.maps.impl;
 
-import java.util.Locale;
-
 /**
  * Esta clase representa una key de tipo String utilizada en un mapa case-insensitive.<br>
  * Esta instancia toma un string como base para establecer relacion de igualdad con otros strings
@@ -34,14 +32,61 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 	}
 
 	/**
-	 * Crea una versión que se utilizará como base de esta instancia para las comparaciones
+	 * Crea una versión en upper case que se utilizará como base de esta instancia para las
+	 * comparaciones.<br>
+	 * La version en upper tendrá todas las letras sin acento en mayusculas.<br>
+	 * Si la cadena pasada ya tiene todo en mayusculas, se devuelve la misma instancia.
 	 * 
 	 * @param unString
 	 *            El texto original
 	 * @return La versión insensitive
 	 */
 	public static String convertToInsensitiveCaseRepresentation(final String unString) {
-		return unString.toUpperCase(Locale.ENGLISH);
+		return toUpperCase(unString);
+	}
+
+	private static final char LIM_ST_LCASE = 'a' - 1;
+	private static final char LIM_N_LCASE = 'z' + 1;
+	private static final char[] UC = { '\000', '\001', '\002', '\003', '\004', '\005', '\006', '\007', '\010', '\011',
+			'\012', '\013', '\014', '\015', '\016', '\017', '\020', '\021', '\022', '\023', '\024', '\025', '\026',
+			'\027', '\030', '\031', '\032', '\033', '\034', '\035', '\036', '\037', '\040', '\041', '\042', '\043',
+			'\044', '\045', '\046', '\047', '\050', '\051', '\052', '\053', '\054', '\055', '\056', '\057', '\060',
+			'\061', '\062', '\063', '\064', '\065', '\066', '\067', '\070', '\071', '\072', '\073', '\074', '\075',
+			'\076', '\077', '\100', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+			'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '\133', '\134', '\135', '\136', '\137', '\140', 'A', 'B',
+			'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+			'X', 'Y', 'Z', '\173', '\174', '\175', '\176', '\177' };
+
+	/**
+	 * Conversion a upper case, tomado de
+	 * http://sourceforge.net/p/faststringutil/code/106/tree/src/com/baculsoft/lang/StringUtil.java
+	 * 
+	 * @param s
+	 * @return s.toUpperCase();
+	 * @see java.lang.String#toUpperCase()
+	 */
+	public static final String toUpperCase(final String s) {
+		char[] c = null;
+		int i = s.length();
+		while (i-- > 0) {
+			final char c1 = s.charAt(i);
+			if (c1 > LIM_ST_LCASE && c1 < LIM_N_LCASE) {
+				final char c2 = UC[c1];
+				if (c1 != c2) {
+					c = s.toCharArray();
+					c[i] = c2;
+					break;
+				}
+			}
+		}
+		char c1;
+		while (i-- > 0) {
+			c1 = c[i];
+			if (c1 > LIM_ST_LCASE && c1 < LIM_N_LCASE) {
+				c[i] = UC[c1];
+			}
+		}
+		return c == null ? s : new String(c);
 	}
 
 	/**
@@ -58,17 +103,8 @@ public class CaseInsensitiveStringKey implements Comparable<CaseInsensitiveStrin
 		else if (obj instanceof CharSequence) {
 			final CharSequence sequence = (CharSequence) obj;
 			final String comparedString = sequence.toString();
-			final boolean esIgualAOriginal = originalString.equals(comparedString);
-			if (esIgualAOriginal) {
-				return true;
-			}
-			final boolean esIgualSinTransformar = insensitiveCaseString.equals(comparedString);
-			if (esIgualSinTransformar) {
-				return true;
-			}
-			final String insensitiveVersion = convertToInsensitiveCaseRepresentation(comparedString);
-			final boolean esIgualTransformada = insensitiveCaseString.equals(insensitiveVersion);
-			return esIgualTransformada;
+			final boolean esIgualSinCase = insensitiveCaseString.equalsIgnoreCase(comparedString);
+			return esIgualSinCase;
 		}
 		return false;
 	}
